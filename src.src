@@ -1,25 +1,64 @@
 # metainformation
 
 MODULE	= skelex
-TITLE	= lexical program project skeleton
+TITLE	= lexical program project skeleton & bI dymanic language runtime
+ABOUT	= ''
 AUTHOR	= Dmitry Ponyatov <dponyatov@gmail.com>
-LICENSE	= GNU LesserGPL
+LICENSE	= 'GNU LesserGPL'
 GITHUB	= https://github.com/ponyatov/+MODULE
 
-core	= [ ypp.ypp lpp.lpp hpp.hpp cpp.cpp Makefile ] "dynamic language core"
-meta	= [ ]
+meta = [ README.md meta.hpp ]
+
+# project file structure
+
 files	= [
 	src.src log.log
-	core
-	filetype.vim syntax.vim
+	core = [										"dynamic language core"
+		ypp.ypp lpp.lpp hpp.hpp cpp.cpp Makefile ] 
+	vimsyntax = [ filetype.vim syntax.vim ]			"(g)Vim syntax files"
+	meta
 	.gitignore bat.bat
-	README.md meta.hpp
 ]
 
-bat.bat = [ "(g)Vim helper"
+bat.bat = [											"(g)Vim helper"
 	@start .
 	@gvim -p files
 ]
 
-.gitignore = [ *~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ] "derived files"
+.gitignore = [										"derived files"
+	*~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ]
+
+file@ README.md = [
+	# MODULE
+	### TITLE
+	ABOUT
+	(c) AUTHOR , LICENSE
+	github: GITHUB
+]
+
+file@ meta.hpp = [
+#ifndef _H_META
+#define MODULE	"MODULE"
+#define TITLE	"TITLE"
+#define ABOUT	"ABOUT"
+#define AUTHOR	"AUTHOR"
+#define LICENSE	"LICENSE"
+#define GITHUB	"GITHUB"
+#endif // _H_META
+]
+
+file@ Makefile = [
+
+log.log: src.src ./exe.exe
+	./exe.exe < $< > $@ && tail $(TAIL) $@
+C = cpp.cpp ypp.tab.cpp lex.yy.c
+H = hpp.hpp ypp.tab.hpp meta.hpp
+./exe.exe: $(C) $(H)
+	$(CXX) $(CXXFLAGS) -o $@ $(C) $(L)
+ypp.tab.cpp: ypp.ypp
+	bison $<
+lex.yy.c: lpp.lpp
+	flex $<
+]
+
 
