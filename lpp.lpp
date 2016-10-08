@@ -9,6 +9,8 @@ N [0-9]+
 %%
 #[^\n]*			{}						/* line comment			*/
 
+^\.end			{yyterminate();}		/* .end directive		*/
+
 '				{BEGIN(lexstring); LexString="";}
 \"				{BEGIN(docstring); LexString="";}
 <lexstring>'	{BEGIN(INITIAL); yylval.o = new Str(LexString); return STR;}
@@ -18,7 +20,7 @@ N [0-9]+
 
 {S}{N}[eE]{S}{N}	TOC(Num,NUM)		/* numbers				*/
 {S}{N}\.{N}			TOC(Num,NUM)
-{S}{N}				TOC(Num,NUM)
+{S}{N}				TOC(Int,NUM)
 
 \(					TOC(Op,LP)			/* brackets				*/
 \)					TOC(Op,RP)
@@ -28,8 +30,8 @@ N [0-9]+
 \}					TOC(Op,RC)
 
 \=					TOC(Op,EQ)			/* operators			*/
-\@					TOC(Op,OP)
-\:					TOC(Op,OP)
+\@					TOC(Op,AT)
+\:					TOC(Op,COLON)
 \~					TOC(Op,OP)
 
 \+					TOC(Op,ADD)
@@ -39,10 +41,10 @@ N [0-9]+
 \^					TOC(Op,POW)
 
 \%					TOC(Op,PERC)
-\$					TOC(Op,OP)
+\$					TOC(Op,DOLLAR)
 
-\<					TOC(Op,OP)
-\>					TOC(Op,OP)
+\<					TOC(Op,LL)
+\>					TOC(Op,GG)
 \&					TOC(Op,OP)
 \|					TOC(Op,OP)
 

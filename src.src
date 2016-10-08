@@ -22,12 +22,12 @@ files	= [
 ]
 
 bat.bat = [											"(g)Vim helper"
-	@start .
-	@gvim -p files
+	'@start' .
+	'@gvim -p' files
 ]
 
 .gitignore = [										"derived files"
-	*~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ]
+	'*~' '*.swp' exe.exe log.log ypp.tab.?pp lex.yy.c ]
 
 file@ README.md = [
 	'# ![logo](%.png) %'	%[ LOGO MODULE ]
@@ -49,10 +49,29 @@ file@ meta.hpp = [
 #endif // _H_META
 ]
 
-file@ Makefile = [ "build script: use make (linux) / mingw32-make (win32)"
+# build system (simple Makefile powered)
 
-log.log: src.src ./exe.exe
-	./exe.exe < $< > $@ && tail $(TAIL) $@
+log = log.log
+src = src.src
+exe = './exe.exe'
+
+file@ Makefile = [ "build script: use make (linux) / mingw32-make (win32)"
+log: [ src exe ] -> 'exe < $< > $@ && tail $(TAIL) $@'
+]
+
+log: [ src exe ] -> [
+	exe
+	< 
+	$<
+	> 
+	$@ 
+#	&& 
+#	tail 
+#	$(TAIL) 
+#	$@
+]
+
+.end
 C = cpp.cpp ypp.tab.cpp lex.yy.c
 H = hpp.hpp ypp.tab.hpp meta.hpp
 CXXFLAGS += -std=gnu++11

@@ -5,12 +5,14 @@
 #include <sstream>
 #include <cstdlib>
 #include <vector>
+#include <map>
 using namespace std;
 
 struct Sym {										// base data class
 	string tag,val;									// T:V pair
 	Sym(string,string); Sym(string);				// constructors
 	vector<Sym*> nest; void push(Sym*);				// nest[]ed elements
+	map<string,Sym*> lookup;						// named dict{}
 	virtual string head(); string pad(int);			// \ object dump
 	virtual string dump(int=0);						// /
 };
@@ -29,6 +31,8 @@ struct Bin:Scalar { Num(string); };					// binary string
 struct Vector:Sym { Vector(); string head(); };		// vector
 
 struct Op:Sym { Op(string); };						// operator
+
+struct Dep:Sym { Dep(Sym*,Sym*,Sym*); };			// dependency rule
 
 													// \ lexer/parser interace
 extern int yylex();
