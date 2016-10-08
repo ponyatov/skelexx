@@ -1,5 +1,5 @@
 # skelex
-### lexical skeleton program
+### lexical program project skeleton
 
 (c) Dmitry Ponyatov <<dponyatov@gmail.com>> , GNU LesserGPL
 

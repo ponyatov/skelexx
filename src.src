@@ -1,0 +1,25 @@
+# metainformation
+
+MODULE	= skelex
+TITLE	= lexical program project skeleton
+AUTHOR	= Dmitry Ponyatov <dponyatov@gmail.com>
+LICENSE	= GNU LesserGPL
+GITHUB	= https://github.com/ponyatov/+MODULE
+
+core	= [ ypp.ypp lpp.lpp hpp.hpp cpp.cpp Makefile ] "dynamic language core"
+meta	= [ ]
+files	= [
+	src.src log.log
+	core
+	filetype.vim syntax.vim
+	.gitignore bat.bat
+	README.md meta.hpp
+]
+
+bat.bat = [ "(g)Vim helper"
+	@start .
+	@gvim -p files
+]
+
+.gitignore = [ *~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ] "derived files"
+
