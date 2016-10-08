@@ -1,0 +1,47 @@
+%{
+#include "hpp.hpp"
+string LexString;
+%}
+%option noyywrap
+%x lexstring docstring
+%%
+#[^\n]*			{}					/* line comment			*/
+
+'				{BEGIN(lexstring); LexString="";}
+\"				{BEGIN(docstring); LexString="";}
+<lexstring>'	{BEGIN(INITIAL); yylval.o = new Sym(LexString); return SYM;}
+<docstring>\"	{BEGIN(INITIAL); yylval.o = new Sym(LexString); return SYM;}
+<lexstring,docstring>\\.	{LexString+=yytext[1];}
+<lexstring,docstring>.		{LexString+=yytext[0];}
+
+\(				TOC(Sym,SYM)		/* brackets				*/
+\)				TOC(Sym,SYM)
+\[				TOC(Sym,SYM)
+\]				TOC(Sym,SYM)
+\{				TOC(Sym,SYM)
+\}				TOC(Sym,SYM)
+
+\=				TOC(Sym,SYM)		/* operators			*/
+\@				TOC(Sym,SYM)
+\:				TOC(Sym,SYM)
+\~				TOC(Sym,SYM)
+
+\+				TOC(Sym,SYM)
+\-				TOC(Sym,SYM)
+\*				TOC(Sym,SYM)
+\/				TOC(Sym,SYM)
+\^				TOC(Sym,SYM)
+
+\%				TOC(Sym,SYM)
+\$				TOC(Sym,SYM)
+
+\<				TOC(Sym,SYM)
+\>				TOC(Sym,SYM)
+\&				TOC(Sym,SYM)
+\|				TOC(Sym,SYM)
+
+[a-zA-Z0-9_.?]+	TOC(Sym,SYM)		/* symbol				*/
+
+[ \t\r\n]+		{}					/* drop spaces			*/
+.				{yyerror("lexer");}	/* any undetected char	*/
+%%
