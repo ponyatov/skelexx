@@ -30,7 +30,7 @@ bat.bat = [											"(g)Vim helper"
 	*~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ]
 
 file@ README.md = [
-	# !(LOGO.png) MODULE
+	# ![logo](LOGO.png) MODULE
 	### TITLE
 	ABOUT
 	(c) AUTHOR , LICENSE
