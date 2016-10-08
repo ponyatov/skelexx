@@ -1,5 +1,5 @@
 # skelex
-### lexical program project skeleton & bI dymanic language runtime
+### lexical program skeleton & bI dymanic language runtime
 
 (c) Dmitry Ponyatov <<dponyatov@gmail.com>> , GNU LesserGPL
 

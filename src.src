@@ -1,7 +1,7 @@
 # metainformation
 
 MODULE	= skelex
-TITLE	= lexical program project skeleton & bI dymanic language runtime
+TITLE	= lexical program skeleton & bI dymanic language runtime
 ABOUT	= ''
 AUTHOR	= Dmitry Ponyatov <dponyatov@gmail.com>
 LICENSE	= 'GNU LesserGPL'
