@@ -7,7 +7,8 @@ Sym::Sym(string T,string V) { tag=T; val=V; }
 Sym::Sym(string V):Sym("sym",V){}
 void Sym::push(Sym*o) { nest.push_back(o); }
 
-string Sym::head() { return "<"+tag+":"+val+">"; }
+string Sym::head() { ostringstream os;
+	os<<"<"+tag+":"+val+"> @"<<this; return os.str(); }
 string Sym::pad(int n) { string S; for (int i=0;i<n;i++) S+='\t'; return S; }
 string Sym::dump(int depth) { string S = "\n"+pad(depth)+head();
 	for (auto it=nest.begin(),e=nest.end();it!=e;it++)
@@ -27,5 +28,8 @@ string Num::head() { ostringstream os;
 Int::Int(string V):Scalar("int",V){}
 string Int::head() { ostringstream os;
 	os<<"<"<<tag<<":"<<val<<">"; return os.str(); }
+
+Vector::Vector():Sym("vector","[]"){}
+string Vector::head() { ostringstream os; os<<"[] @"<<this; return os.str(); }
 
 Op::Op(string V):Sym("op",V){}

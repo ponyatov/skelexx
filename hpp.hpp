@@ -26,6 +26,8 @@ struct Int:Scalar { Int(string); int val;			// integer
 struct Hex:Scalar { Num(string); };					// machine hex
 struct Bin:Scalar { Num(string); };					// binary string
 
+struct Vector:Sym { Vector(); string head(); };		// vector
+
 struct Op:Sym { Op(string); };						// operator
 
 													// \ lexer/parser interace

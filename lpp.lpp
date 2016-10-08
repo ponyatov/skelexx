@@ -2,7 +2,7 @@
 #include "hpp.hpp"
 string LexString;
 %}
-%option noyywrap
+%option noyywrap yylineno
 %x lexstring docstring
 S [\+\-]?
 N [0-9]+
@@ -20,25 +20,25 @@ N [0-9]+
 {S}{N}\.{N}			TOC(Num,NUM)
 {S}{N}				TOC(Num,NUM)
 
-\(					TOC(Op,OP)			/* brackets				*/
-\)					TOC(Op,OP)
-\[					TOC(Op,OP)
-\]					TOC(Op,OP)
-\{					TOC(Op,OP)
-\}					TOC(Op,OP)
+\(					TOC(Op,LP)			/* brackets				*/
+\)					TOC(Op,RP)
+\[					TOC(Op,LQ)
+\]					TOC(Op,RQ)
+\{					TOC(Op,LC)
+\}					TOC(Op,RC)
 
 \=					TOC(Op,EQ)			/* operators			*/
 \@					TOC(Op,OP)
 \:					TOC(Op,OP)
 \~					TOC(Op,OP)
 
-\+					TOC(Op,OP)
-\-					TOC(Op,OP)
-\*					TOC(Op,OP)
-\/					TOC(Op,OP)
-\^					TOC(Op,OP)
+\+					TOC(Op,ADD)
+\-					TOC(Op,SUB)
+\*					TOC(Op,MUL)
+\/					TOC(Op,DIV)
+\^					TOC(Op,POW)
 
-\%					TOC(Op,OP)
+\%					TOC(Op,PERC)
 \$					TOC(Op,OP)
 
 \<					TOC(Op,OP)
