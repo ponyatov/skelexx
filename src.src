@@ -6,6 +6,7 @@ ABOUT	= ''
 AUTHOR	= Dmitry Ponyatov <dponyatov@gmail.com>
 LICENSE	= 'GNU LesserGPL'
 GITHUB	= https://github.com/ponyatov/+MODULE
+LOGO	= logo64x64
 
 meta = [ README.md meta.hpp ]
 
@@ -29,7 +30,7 @@ bat.bat = [											"(g)Vim helper"
 	*~ *.swp exe.exe log.log ypp.tab.?pp lex.yy.c ]
 
 file@ README.md = [
-	# MODULE
+	# !(LOGO.png) MODULE
 	### TITLE
 	ABOUT
 	(c) AUTHOR , LICENSE
@@ -44,6 +45,7 @@ file@ meta.hpp = [
 #define AUTHOR	"AUTHOR"
 #define LICENSE	"LICENSE"
 #define GITHUB	"GITHUB"
+#define LOGO	"LOGO"
 #endif // _H_META
 ]
 
