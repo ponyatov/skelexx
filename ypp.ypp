@@ -2,7 +2,13 @@
 #include "hpp.hpp"
 %}
 %defines %union { Sym*o; }
-%token <o> SYM
+%token <o> SYM NUM STR DOC
+%token <o> OP EQ
+%type <o> ex scalar
 %%
-REPL : | REPL SYM { cout << $2->dump() << endl; } ;
+REPL : | REPL ex { cout << $2->dump() << endl; } ;
+scalar : SYM | NUM | STR ;
+ex : scalar | DOC | OP
+	| ex EQ ex				{ $$=$2; $2->push($1); $2->push($3); }
+;
 %%
